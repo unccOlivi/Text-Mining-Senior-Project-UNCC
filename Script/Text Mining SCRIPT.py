@@ -7,6 +7,7 @@ import nltk
 from collections import Counter
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from nltk.tokenize import RegexpTokenizer
 set(stopwords.words('english'))
 from nltk.tokenize.treebank import TreebankWordDetokenizer
 
@@ -33,11 +34,19 @@ dataFrame = pd.DataFrame(list(collection.find()))
 # Look at the first 5 entries of the dataset with Pandas .head() method
 dataFrame.head()
 
+# Some spaces for clarity in the output
+print(f'\n')
+print(f'\n')
+
 # See how many entries its got. .shape[0] gives rows, .shape[1] gives columns 
 print(f'There are {dataFrame.shape[0]} entries in this dataset')
 
 # How many unique authors, using the Pandas unique function
 print(f'There are {len(dataFrame.author.unique())} unique authors in this dataset')
+
+# Some spaces for clarity in the output
+print(f'\n')
+print(f'\n')
 
 # Make another dataset called author, where all entries are grouped by author name and with only certain columns
 author = dataFrame[["author", "claps", "reading_time", "title"]].groupby("author")
@@ -58,7 +67,7 @@ dataFrame.sort_values(by = "reading_time", ascending = False)["reading_time"].he
 plt.xlabel("Article #")
 plt.ylabel("Max Reading Time Needed (minutes)")
 
-plt.show()
+plt.show(block = True)
 
 
 
@@ -70,6 +79,7 @@ wordcloud1 = WordCloud(max_words = 50, background_color = "white").generate(firs
 # Now show it with MathPlotLib
 plt.figure(figsize = (15, 5))
 plt.imshow(wordcloud1)
+plt.show(block = True)
 
 
 
@@ -78,7 +88,7 @@ plt.imshow(wordcloud1)
 allArticles = " ".join(article for article in dataFrame.text)
 
 # Let's check how many words are there
-print(f'Between all articles, there are {len(allArticles)} words')
+print(f'Between all articles, there are {len(allArticles)} words in total.')
 
 
 
@@ -110,9 +120,11 @@ for word in allArticles_withoutPunct:
         articles_tokens_clean.append(word)
 
 # Let's check how many USEFUL words are there after the cleaning
-print(f'Between all articles, there are  useful {len(articles_tokens_clean)} words')
+print(f'Between all articles, there are {len(articles_tokens_clean)} useful words after cleaning up.')
 
-
+# Some spaces for clarity in the output
+print(f'\n')
+print(f'\n')
 
 # Now let's detokenize the list to create a wordcloud later
 clean_text = TreebankWordDetokenizer().detokenize(articles_tokens_clean)
@@ -122,6 +134,7 @@ total_wordcloud = WordCloud(background_color = "white", max_words = 100).generat
 
 plt.figure(figsize = (15, 5))
 plt.imshow(total_wordcloud)
+plt.show(block = False)
 
 
 
@@ -137,7 +150,8 @@ print(f'The 10 most common words across all articles are:\n')
 for item, count in most_common_ten.items(): 
     print(f'{item}: These skills appeared {count} times, or {((count*100)/len(articles_tokens_clean)):.4f}% of all the words')
 
-
+# Some spaces for clarity in the output
+print(f'\n')
 
 # We make 2 lists for the 10 most common items and key of the dictionary and populate them
 ten_most_common_words = []
@@ -148,7 +162,11 @@ for item, count in most_common_ten.items():
     ten_most_common_freqs.append(count)
     
 print(f'{ten_most_common_words}\n')
-print(f'{ten_most_common_freqs}\n')
+print(f'{ten_most_common_freqs}')
+
+# Some spaces for clarity in the output
+print(f'\n')
+print(f'\n')
 
 # Make lists for items and frequencies combinations
 skill_combinations = []
@@ -167,10 +185,12 @@ for i in range(5):
     skill_combinations.extend((skill_comb_i1, skill_comb_i2, skill_comb_i3))
     skill_combination_freqs.extend((skill_comb_freqs_i1, skill_comb_freqs_i2, skill_comb_freqs_i3))
     
-print(f'{skill_combinations}')
+print(f'{skill_combinations}\n')
 print(f'{skill_combination_freqs}')
 
-
+# Some spaces for clarity in the output
+print(f'\n')
+print(f'\n')
 
 # Now we make them into a new dictionary and add items and frequencies as key and value
 skills_freqs_combinations = {}
@@ -187,3 +207,7 @@ print(f'The 10 most common pairings of skills across all articles are:\n')
 
 for combination, count in skills_freqs_combinations.items(): 
     print(f'{combination}: These skills appeared {count} times, or {((count*100)/len(articles_tokens_clean)):.4f}% of all the words')
+
+# Some spaces for clarity in the output
+print(f'\n')
+print(f'\n')    
