@@ -103,7 +103,11 @@ allArticlesUpperLowerCase = " ".join(article for article in dataFrame.text)
 allArticles = allArticlesUpperLowerCase.lower()
 
 # Let's check how many words are there
-print(f'Between all articles, there are {len(allArticles)} words in total.\n')
+print(f'Between all articles, there are {len(allArticles)} words in total.')
+
+# Some spaces for clarity in the output
+print(f'\n')
+print(f'\n')
 
 
 
@@ -247,6 +251,19 @@ for item, count in most_common_ten.items():
 # Some spaces for clarity in the output
 print(f'\n')
 
+# Set the graph picture size
+plt.figure(figsize = (20, 10))
+
+# Set values and keys as the labels for the bar graph
+plt.bar(range(len(most_common_ten)), most_common_ten.values(), align='center')
+plt.xticks(range(len(most_common_ten)), list(most_common_ten.keys()))
+
+# Save the picture in the Images folder
+plt.savefig('Images/04_top_10_skills.png')
+plt.show(block = True)
+plt.show()
+
+
 # We make 2 lists for the 10 most common items and key of the dictionary and populate them
 ten_most_common_words = []
 ten_most_common_freqs = []
@@ -292,8 +309,6 @@ skills_freqs_combinations = {}
 for i in range(10):
     skills_freqs_combinations.update({skill_combinations[i] : skill_combination_freqs[i]})
 
-skills_freqs_combinations
-
 
 
 # Now print frequencies and data from the dictionary like before
@@ -306,7 +321,17 @@ for combination, count in skills_freqs_combinations.items():
 print(f'\n')
 print(f'\n')    
 
+# Set the graph picture size
+plt.figure(figsize = (35, 15))
 
+# Set values and keys as the labels for the bar graph
+plt.bar(range(len(skills_freqs_combinations)), skills_freqs_combinations.values(), align='center')
+plt.xticks(range(len(skills_freqs_combinations)), list(skills_freqs_combinations.keys()))
+
+# Save the picture in the Images folder
+plt.savefig('Images/05_top_10_combinations.png')
+plt.show(block = True)
+plt.show()
 
 # End the timer
 timer_end = perf_counter()
